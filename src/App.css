@@ -1,0 +1,113 @@
+body{
+  margin:0;
+  background-color: #F5F7FB;
+  font-family: 'Karla', sans-serif;
+}
+
+.yellowBlob{
+  height:40vh;
+  right: 0;
+  top:0;
+  position: absolute;
+}
+.homeScreen{
+  text-align: center;
+  /* background-color:pink; */
+  display: block;
+}
+.title{
+  margin-top: 35vh;
+  color:#293264;
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+.description{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+}
+.playButton{
+  width: 150px;
+  height: 52px;
+  margin-top: 30px;
+  border:none;
+  
+  background: #4D5B9E;
+  border-radius: 10px;
+  font-family: 'Inter';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 19px;
+text-align: center;
+
+color: #F5F7FB;
+}
+.blueBlob{
+  position: absolute;
+  bottom: 0;
+  height:25vh;
+}
+.questionComponent{
+  margin-left: 20vw;
+  margin-right: 20vw;
+  position: relative;
+  width:60vw;
+  margin-top: 5vh;
+}
+.questionText{
+  font-size: 16px;
+  color: #293264;
+  font-family: 'Karla';
+font-style: normal;
+font-weight: 700;
+margin-bottom: 0;
+}
+.optionsContainer{
+  display: flex;
+  flex-direction: row;
+    /* margin-left: 15px; */
+  margin-top: 0;
+}
+.options{
+  font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 11px;
+line-height: 12px;
+border: 1.5px solid #4D5B9E;
+  color: #293264;
+  margin-right: 2vw;
+  padding: 7px;
+  padding-left: 20px;
+  padding-right: 20px;
+  max-width:20vw;
+  text-align: center;
+  align-self: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+.resultButtonContainer{
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.questionSeparator{
+  border: 0.794239px solid #DBDEF0;
+  width:60vw;
+}
+.resultText{
+  font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 12.8px;
+line-height: 15px;
+text-align: center;
+color: #293264;
+}
