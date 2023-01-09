@@ -3,7 +3,7 @@ import React from "react"
 
 export default function Question(props){
    
-    const [optionsArray,setOptionsArray]=React.useState(getOptionsArray)
+   // const [optionsArray,setOptionsArray]=React.useState(getOptionsArray)
     const [selectedOption,setSelectedOption]=React.useState('')
    // const [showResult,setShowResult]=React.useState(false)
    // console.log(props.questionIndex+" options are "+optionsArray)
@@ -30,7 +30,7 @@ export default function Question(props){
     }
     function selectStyle(option){
         if(props.showResult){
-            if(option===props.question.correct_answer) 
+            if(option===props.correctAnswer) 
                 return correctOptionStyle
             else
                 if(option===selectedOption)
@@ -43,23 +43,22 @@ export default function Question(props){
     }
     
 
-    function getOptionsArray(){
-        const tempArr=props.question.incorrect_answers
-        const idx=Math.floor(Math.random()*(tempArr.length +1))
-        tempArr.splice(idx,0,props.question.correct_answer)
-        return tempArr
-    }
+    // function getOptionsArray(){
+    //     const tempArr=props.incorrectAnswer
+    //     const idx=Math.floor(Math.random()*(tempArr.length +1))
+    //     tempArr.splice(idx,0,props.question.correct_answer)
+    //     return tempArr
+    // }
 
     function selectOption(option){
-       // console.log("Selected option is "+option)
         setSelectedOption(option)
-        if(option===props.question.correct_answer)
-            props.addResult(true,props.questionIndex)
+        if(option===props.correctAnswer)
+            props.addResult(true,props.questionId)
         else
-            props.addResult(false,props.questionIndex)
+            props.addResult(false,props.questionId)
     }
 
-    const optionElements=optionsArray.map(
+    const optionElements=props.optionsArray.map(
         option=><p 
                 onClick={()=>selectOption(option)} 
                 className="options"
@@ -74,7 +73,7 @@ export default function Question(props){
 
     return(
     <div className="questionComponent">
-        <h4 className="questionText">{props.question.question}</h4>
+        <h4 className="questionText">{props.question}</h4>
         <div className="optionsContainer">
             {optionElements}
         </div>

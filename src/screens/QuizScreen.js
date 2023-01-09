@@ -1,6 +1,6 @@
 import React from "react"
 import Question from "../components/Question"
-import nanoid from "nanoid"
+import {nanoid} from "nanoid"
 
 
 // category:"Entertainment: Video Games"
@@ -13,45 +13,65 @@ import nanoid from "nanoid"
 export default function QuizScreen(){
     const [questions,setQuestions]=React.useState([])
     const [showResult,setShowResult]=React.useState(false)
-    const [result,setResult]=React.useState(0)
+    const [result,setResult]=React.useState([])
     const [newGame,setNewGame]=React.useState(false)
 
     React.useEffect(()=>{
         fetch("https://opentdb.com/api.php?amount=5")
         .then(response=>response.json())
-        .then(response=>setQuestions(response.results))
+        .then(response=>setQuestions(createQuestionArray(response.results)))
        // .then(response=>setQuestions(response.results))
     },[newGame])
 
-console.log(questions)
+//console.log(questions)
 
-    function addResult(result,index){
-
-        for(let i=0;i<questions.length;i++){
-            if(index===i)
-                if(result)
-                    setResult((prevResult)=>prevResult+1)
-        }
+    function createQuestionArray(data){
+      //  console.log("In create question array")
+      //  console.log(data)
+        const questionArray=data.map((question)=>({
+            questionId:nanoid(),
+            question:question.question,
+            incorrectAnswers:question.incorrect_answers,
+            correctAnswer:question.correct_answer,
+            optionsArray:getOptionsArray(question)
+        }))
+        return questionArray
     }
 
-    // function getOptionsArray(que){
-    //     const tempArr=que.incorrect_answers
-    //     const idx=Math.floor(Math.random()*(tempArr.length +1))
-    //     tempArr.splice(idx,0,que.correct_answer)
-    //     return tempArr
-    // }
+    function addResult(result,id){
+        //    setResult((prevResult)=>prevResult.map(
+        //     res=> (
+        //         res.questionId==id ?
+        //         {
+        //             questionId:id,
+        //             score:result
+        //         }
+        //         :{...prevResult}
+        //     )
+        //    ))
+    }
+    console.log(result)
+    function getOptionsArray(que){
+        const tempArr=que.incorrect_answers
+        const idx=Math.floor(Math.random()*(tempArr.length +1))
+        tempArr.splice(idx,0,que.correct_answer)
+        return tempArr
+    }
     
     //console.log(result)
     const questionElements=questions.map(
         (que,index)=>
             //const optionArray=getOptionsArray(que)
              <Question
-                        key={index} 
-                        question={que} 
+                        key={que.questionId} 
+                        question={que.question} 
                         addResult={addResult}
-                        questionIndex={index}
+                        questionId={que.questionId}
                         showResult={showResult}
                         newGame={newGame}
+                        correctAnswer={que.correctAnswer}
+                        incorrectAnswers={que.incorrectAnswers}
+                        optionsArray={que.optionsArray}
                         //  optionArray={que.incorrect_answers.
                         //     splice(
                         //          Math.floor(Math.random()*(que.incorrect_answers.length +1)),
