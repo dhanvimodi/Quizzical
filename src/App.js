@@ -5,19 +5,19 @@ import QuizScreen from "./screens/QuizScreen";
 import './App.css';
 
 function App() {
-  const [quizStarted,setQuizStarted]=React.useState(false)
+  const [quizStarted, setQuizStarted] = React.useState(false)
 
-  function playButton(){
+  function playButton() {
     setQuizStarted(true)
   }
 
   return (
     <div className="App">
-       <img src={require("./images/yellowBlob.png")} className="yellowBlob" alt=""/>
+      <img src={require("./images/yellowBlob.png")} className="yellowBlob" alt="" />
       {
-        quizStarted ?  <QuizScreen /> :<HomeScreen playButton={playButton}/>
+        quizStarted ? <QuizScreen /> : <HomeScreen playButton={playButton} />
       }
-            <img className="blueBlob" src={require("./images/blue-blob.png")} alt=""/>
+      <img className="blueBlob" src={require("./images/blue-blob.png")} alt="" />
 
     </div>
   );
