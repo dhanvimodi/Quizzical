@@ -8,7 +8,6 @@ function App() {
   const [quizStarted,setQuizStarted]=React.useState(false)
 
   function playButton(){
-    console.log("In play button function")
     setQuizStarted(true)
   }
 

@@ -3,31 +3,21 @@ import Question from "../components/Question"
 import {nanoid} from "nanoid"
 
 
-// category:"Entertainment: Video Games"
-// correct_answer:"Microsoft"
-// difficulty:"easy"
-// incorrect_answers:(3) ['Apple', 'Google', 'Yahoo']
-// question:"Which company did Gabe Newell work at before founding Valve Corporation?"
-// type:"multiple"
-
 export default function QuizScreen(){
     const [questions,setQuestions]=React.useState([])
     const [showResult,setShowResult]=React.useState(false)
-    const [result,setResult]=React.useState([])
+    const [resultArray,setResultArray]=React.useState([])
     const [newGame,setNewGame]=React.useState(false)
+    const [score,setScore]=React.useState(0)
 
     React.useEffect(()=>{
         fetch("https://opentdb.com/api.php?amount=5")
         .then(response=>response.json())
         .then(response=>setQuestions(createQuestionArray(response.results)))
-       // .then(response=>setQuestions(response.results))
     },[newGame])
 
-//console.log(questions)
 
     function createQuestionArray(data){
-      //  console.log("In create question array")
-      //  console.log(data)
         const questionArray=data.map((question)=>({
             questionId:nanoid(),
             question:question.question,
@@ -39,18 +29,23 @@ export default function QuizScreen(){
     }
 
     function addResult(result,id){
-        //    setResult((prevResult)=>prevResult.map(
-        //     res=> (
-        //         res.questionId==id ?
-        //         {
-        //             questionId:id,
-        //             score:result
-        //         }
-        //         :{...prevResult}
-        //     )
-        //    ))
+        let tempArr=resultArray
+        let i=0;
+        for(;i<tempArr.length;i++){
+            if(tempArr[i].questionId===id){
+                tempArr[i].result=result
+                break;
+            }
+        }
+        if(i===tempArr.length){
+            tempArr[i]={
+                questionId:id,
+                result:result
+            }
+        }
+        setResultArray(tempArr)
     }
-    console.log(result)
+
     function getOptionsArray(que){
         const tempArr=que.incorrect_answers
         const idx=Math.floor(Math.random()*(tempArr.length +1))
@@ -58,10 +53,8 @@ export default function QuizScreen(){
         return tempArr
     }
     
-    //console.log(result)
     const questionElements=questions.map(
-        (que,index)=>
-            //const optionArray=getOptionsArray(que)
+        (que)=>
              <Question
                         key={que.questionId} 
                         question={que.question} 
@@ -72,37 +65,44 @@ export default function QuizScreen(){
                         correctAnswer={que.correctAnswer}
                         incorrectAnswers={que.incorrectAnswers}
                         optionsArray={que.optionsArray}
-                        //  optionArray={que.incorrect_answers.
-                        //     splice(
-                        //          Math.floor(Math.random()*(que.incorrect_answers.length +1)),
-                        //          0,
-                        //          que.correct_answer)}
                     />
         )
 
     function playAgain(){
-        setNewGame(true)
+        setNewGame(!newGame)
         setShowResult(false)
-        setResult(0)
-        // <QuizScreen/>
+        setResultArray([])
+        setScore(0)
     }
 
+    function calculateResult(){
+        if(resultArray.length!==questions.length)
+            alert("Please answer all the questions")
+        else{
+            let score=0
+            resultArray.map(result=>(
+                result.result && score++
+            ))
+            setScore(score)
+            setShowResult(true)
+        }
+        
+    }
     return(
         <div className="quizScreen">
-            {/* <button onClick={getOptionsArray}>Click</button> */}
             {questionElements}
             
                 {
                     showResult ?
                     <div className="resultButtonContainer">
-                        <p className="resultText">You scored {result}/{questions.length} correct answers</p>
+                        <h1 className="resultText">You scored {score}/{questions.length} correct answers</h1>
                         <button className="playButton" 
                                 onClick={playAgain}>Play Again</button>
                     </div>
                     :
                     <div className="resultButtonContainer">
                         <button className="playButton" 
-                        onClick={()=>setShowResult(true)}>Check Answers</button>
+                        onClick={calculateResult}>Check Answers</button>
             </div>
                 } 
 

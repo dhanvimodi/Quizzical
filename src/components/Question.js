@@ -1,23 +1,9 @@
-import { initial, result } from "lodash"
 import React from "react"
 
 export default function Question(props){
    
-   // const [optionsArray,setOptionsArray]=React.useState(getOptionsArray)
     const [selectedOption,setSelectedOption]=React.useState('')
-   // const [showResult,setShowResult]=React.useState(false)
-   // console.log(props.questionIndex+" options are "+optionsArray)
-    // console.log(props.question)
-   // let optionElements
-    // React.useEffect(()=>{
-    //     // props.question.incorrect_answers.splice(
-    //     //     Math.floor(Math.random()*(props.question.incorrect_answers.length +1)),
-    //     //     0,
-    //     //     props.question.correct_answer
-    //     )
-    console.log(props)
-    // },[props.newGame])
-    // console.log('Options array is'+optionsArray)
+   
     const selectedOptionStyle={
         backgroundColor:"#DBDEF0"
     }
@@ -28,6 +14,7 @@ export default function Question(props){
         backgroundColor:"#F8BCBC",
         opacity:0.5
     }
+
     function selectStyle(option){
         if(props.showResult){
             if(option===props.correctAnswer) 
@@ -42,14 +29,6 @@ export default function Question(props){
         }
     }
     
-
-    // function getOptionsArray(){
-    //     const tempArr=props.incorrectAnswer
-    //     const idx=Math.floor(Math.random()*(tempArr.length +1))
-    //     tempArr.splice(idx,0,props.question.correct_answer)
-    //     return tempArr
-    // }
-
     function selectOption(option){
         setSelectedOption(option)
         if(option===props.correctAnswer)
@@ -59,7 +38,8 @@ export default function Question(props){
     }
 
     const optionElements=props.optionsArray.map(
-        option=><p 
+        (option,index)=><p 
+                key={index}
                 onClick={()=>selectOption(option)} 
                 className="options"
                 style={selectStyle(option)}>
@@ -67,10 +47,6 @@ export default function Question(props){
                 </p>
         )
     
-    //console.log("Options array is"+optionsArray)
-
-    
-
     return(
     <div className="questionComponent">
         <h4 className="questionText">{props.question}</h4>

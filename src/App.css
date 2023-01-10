@@ -39,11 +39,11 @@ body{
   background: #4D5B9E;
   border-radius: 10px;
   font-family: 'Inter';
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 19px;
-text-align: center;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
 
 color: #F5F7FB;
 }
@@ -96,7 +96,13 @@ border: 1.5px solid #4D5B9E;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
+  width:70vw;
+  margin-left: 15vw;
+  margin-top: 15px;
+}
+.resultButtonContainer button{
+  margin-top: 0;
 }
 .questionSeparator{
   border: 0.794239px solid #DBDEF0;
@@ -104,10 +110,9 @@ border: 1.5px solid #4D5B9E;
 }
 .resultText{
   font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 12.8px;
-line-height: 15px;
-text-align: center;
-color: #293264;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+  color: #293264;
 }
