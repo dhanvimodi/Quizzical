@@ -30,11 +30,13 @@ export default function Question(props) {
     }
 
     function selectOption(option) {
-        setSelectedOption(option)
-        if (option === props.correctAnswer)
-            props.addResult(true, props.questionId)
-        else
-            props.addResult(false, props.questionId)
+        if (!props.showResult) {
+            setSelectedOption(option)
+            if (option === props.correctAnswer)
+                props.addResult(true, props.questionId)
+            else
+                props.addResult(false, props.questionId)
+        }
     }
 
     const optionElements = props.optionsArray.map(
